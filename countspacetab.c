@@ -4,7 +4,7 @@ int main(void){
     int count=0;
     int c;
     printf("Nhap chuoi:");
-    while ((c=getchar())!=EOF)
+    while ((c=getchar())!='\n')
     {
         if((c==' ')|(c=='\t'))
             count++;

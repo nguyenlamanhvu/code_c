@@ -9,6 +9,5 @@ int main(void){
     printf("%s",ten2);
     const char ten3[]="\nNguyen Lam Anh Vu"" khoa Dien";
     printf("%s",ten3);
-    _Bool giatri = 12;
-    printf("\n%d",giatri);
+    return 0;
 }

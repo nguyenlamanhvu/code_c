@@ -1,52 +1,36 @@
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
-void nhapmang(int a[][500],int n, int m){
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            scanf("%d",&a[i][j]);
-        }
-    }
+#include <iostream>
+using namespace std;
+void merge(int a[], int l, int m, int r){
+int n1 = m - l + 1, n2 = r - m;
+int x[n1], y[n2];
+for(int j = l; j <= m; j++) 
+x[j - l] = a[j];
+for(int j = m + 1; j <= r; j++) 
+y[j - m - 1] = a[j];
+int i = 0, j = 0, cnt = l;
+while(i < n1 && j < n2){
+if(x[i] <= y[j])
+a[cnt++] = x[i++];
+else
+a[cnt++] = y[j++];
 }
-void xuatmang(int a[][500],int n, int m){
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            printf("%d ",a[i][j]);
-        }
-        printf("\n");
-    }
+while(i < n1) a[cnt++] = x[i++];
+while(j < n2) a[cnt++] = y[j++];
 }
-int main(void){   
-    int n;
-    scanf("%d",&n);
-    int a[500][500];
-    nhapmang(a,n,n); 
-    printf("Pattern 1:\n"); 
-    for(int i=0;i<n;i++){
-        for(int j=0;j<i;j++){
-            int temp=a[i][j];
-            a[i][j]=a[j][i];
-            a[j][i]=temp;
-        }
-    }
-    xuatmang(a,n,n);
-    printf("Pattern 2:\n"); 
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n-i;j++){
-            int temp=a[n-1-j][n-1-i];
-            a[n-1-j][n-1-i]=a[i][j];
-            a[i][j]=temp;
-        }
-    }
-    xuatmang(a,n,n);
-    printf("Pattern 3:\n"); 
-    for(int i=n-1;i>0;i--){
-        for(int j=0;j<n;j++){
-            int temp=a[i][j];
-            a[i][j]=a[j][i];
-            a[j][i]=temp;
-        }
-    }
-    xuatmang(a,n,n);
+void mergeSort(int a[], int l, int r){
+if(l < r){
+int m = (l + r) / 2;
+mergeSort(a, l, m);
+mergeSort(a, m + 1, r);
+merge(a, l, m , r);
+}
+}
+int main(){
+int n; cin >> n;
+int a[n];
+for(int i = 0; i < n; i++){
+cin >> a[i];
+}
+mergeSort(a, 0, n - 1);
+for(int x : a) cout << x << ' ';
 }
